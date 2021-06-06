@@ -12,7 +12,7 @@ public class PistonScript : MonoBehaviour
     public Vector3 endLocation;
     private Vector3 startLocation;
 
-    public bool forwards { get; private set; }
+    public bool forwards { get; private set; } = true;
     public bool isWaiting { get; private set; }
     public float velocity { get; private set; }
     private Vector3 previousLocation;
@@ -32,12 +32,12 @@ public class PistonScript : MonoBehaviour
             if (!isWaiting)
             {
 
-                if (timeElapsed < lerpDuration && !forwards)
+                if (timeElapsed < lerpDuration && forwards)
                 {
                     transform.position = Vector3.Lerp(startLocation, endLocation, timeElapsed / lerpDuration);
                     timeElapsed += Time.deltaTime;
                 }
-                else if (timeElapsed < lerpDuration && forwards)
+                else if (timeElapsed < lerpDuration && !forwards)
                 {
                     transform.position = Vector3.Lerp(endLocation, startLocation, timeElapsed / lerpDuration);
                     timeElapsed += Time.deltaTime;
@@ -57,7 +57,7 @@ public class PistonScript : MonoBehaviour
 
     private IEnumerator Delay()
     {
-        yield return new WaitForSeconds((forwards) ? suspendTimeBack : suspendTimeFront);
+        yield return new WaitForSeconds((forwards) ? suspendTimeFront : suspendTimeBack);
         forwards = !forwards;
         timeElapsed = 0;
         isWaiting = false;

@@ -31,7 +31,7 @@ public class AttachScript : MonoBehaviour
         {
             other.transform.parent = null;
             this.firstAttach = true;
-            this.isAttached = true;
+            this.isAttached = false;
         }
     }
 }

@@ -11,7 +11,7 @@ public class AttachVertical : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player != null && !player.isGrounded && isAttached && pistonScript.forwards)
+        if (player != null && !player.isGrounded && isAttached && !pistonScript.forwards)
         {
             player.transform.parent = null;
             isAttached = false;
@@ -30,9 +30,9 @@ public class AttachVertical : MonoBehaviour
         {
 
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
-            if ((!pistonScript.isWaiting && !pistonScript.forwards) || (pistonScript.forwards && playerMovement.isGrounded))
+            if ((!pistonScript.isWaiting && pistonScript.forwards) || (!pistonScript.forwards && playerMovement.isGrounded))
             {
-                if (pistonScript.forwards){playerMovement.setPlayerVelocity(pistonScript.velocity);}
+                if (!pistonScript.forwards){playerMovement.setPlayerVelocity(pistonScript.velocity);}
 
                 player = playerMovement;
                 other.transform.parent = transform.parent;
@@ -44,7 +44,7 @@ public class AttachVertical : MonoBehaviour
             PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
             if (playerMovement.isGrounded)
             {
-                if (pistonScript.forwards){playerMovement.setPlayerVelocity(pistonScript.velocity);}
+                if (!pistonScript.forwards){playerMovement.setPlayerVelocity(pistonScript.velocity);}
 
                 firstAttach = false;
                 isAttached = false;

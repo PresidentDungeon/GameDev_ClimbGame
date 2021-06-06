@@ -9,7 +9,6 @@ public class Timer : MonoBehaviour
 {
 
     [SerializeField] private TMP_Text timer;
-    public int MyProperty { get; private set; }
     public float totalTime { get; private set; }
     public float elapsedTime { get; private set; }
 
